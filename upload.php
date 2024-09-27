@@ -10,7 +10,7 @@
 
 <body>
 
-    <main class=" p-10 lg:pl-[18rem] lg:mx-0 mx-auto">
+    <main class=" p-10 lg:pl-[18rem] lg:mx-0 mx-auto max-w-[1920px]">
 
         <div class=" flex gap-2 mb-5 items-start lg:hidden ">
 
@@ -54,34 +54,45 @@
 
                 <form class="max-w-sm" method="post" action="./upfile.php" enctype="multipart/form-data">
                     <label for="photo" class="sr-only ">Choose file</label>
-                    <input type="file" multiple name="photo[]" id="photo" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-slate-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+                    <input type="file" multiple name="photo[]" id="photo" class="block w-full border text-blue-600 border-gray-200 file:bg-blue-400 shadow-sm rounded-lg text-sm focus:z-10 focus:border-slate-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
                         file:border-0
                         file:me-4
+                        file:text-white
                         file:py-3 file:px-4
                         dark:file:bg-neutral-700 dark:file:text-neutral-400">
 
-                        <button type="submit" class="py-3 px-4 mt-10 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                    Up file
-                </button>
+                    <div class=" text-end"> 
+                    <button type="submit" class="py-3 px-4 mt-10 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-800 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                        Upload file
+                    </button>
+                    </div>
                 </form>
 
 
 
-                
+
             </div>
 
 
         </div>
 
-        <div class=" flex gap-4 flex-wrap mt-12">
+        <div class= " columns-[180px] gap-2 mt-12">
             <?php
             $file_name = './photo';
             $scan = scandir($file_name);
-            $filtered = array_filter($scan,fn($el)=> $el != '.' && $el != '..');
-            foreach($filtered as $data):?>
-            <img class=" max-w-[300px] rounded object-cover" src=<?='./photo/'.$data ?> ></img>
-             <?php endforeach; ?>
-            
+            $filtered = array_filter($scan, fn($el) => $el != '.' && $el != '..');
+            foreach ($filtered as $data): ?>
+                <div class=" inline relative group ">
+                    <div class=" mb-2">
+                        <img class=" rounded object-cover " src=<?= './photo/' . $data ?>></img>
+                        <a href="./delelted_photo.php?photo=<?= $data ?>" onclick="return confirm('Are you sure do you want to delete this photo')" class="py-3 px-4 hidden group-hover:inline-flex absolute bottom-0 right-0 items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+
         </div>
 
     </main>
