@@ -1,7 +1,7 @@
 <?php
 
 
-if (empty($_POST['width']) || empty($_POST['height'])) {
+if (!empty($_POST['width']) || !empty($_POST['height'])) {
 
     header('Location:./index.php');
     // die();
